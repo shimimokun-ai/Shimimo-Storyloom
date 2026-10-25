@@ -53,6 +53,6 @@ soundEffects: { door: 'assets/audio/door.wav' }
 
 ## 自己的成就与结尾
 
-可在配置中添加 `achievements.definitions`，字段为 `id`、`steamId`、可选图标以及 `zh`、`ja`、`en` 的 `name` / `description`。`achievements.milestones` 可指定 `{ id, scene, target }`，由实际执行的 `jump` 触发。未配置时使用通用示例成就。
+可在配置中添加 `achievements.definitions`，字段为 `id`、`steamId`、可选图标以及 `zh`、`ja`、`en` 的 `name` / `description`。`achievements.milestones` 可指定 `{ id, scene, target }`，由实际执行的 `jump` 触发。未配置时仅提供数字 1、2、3 作为占位，不显示图标或说明文字。三个占位依次关联示例通关、节奏胜利、格斗胜利；自己的项目可替换全部定义。
 
 结尾名单在 `js/generated/ending-credits.js` 和 `js/locales/ending-credits-*.js` 中编辑。它们在本模板中是可直接编辑的数据，不需要原作名单或生成工具。没有背景音乐和图片也能播放名单。

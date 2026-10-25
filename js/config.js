@@ -60,8 +60,8 @@ const GameConfig = {
     "fadeOutMs": 180
   },
   "mainMenuBackgrounds": [
-    "linear-gradient(135deg, #e8edf6 0%, #f5ede4 55%, #e9e4f2 100%)",
-    "linear-gradient(135deg, #e4efeb, #e7e8f3)"
+    "#f5f5f5",
+    "#ededed"
   ],
   "characters": {
     "player": {
@@ -71,7 +71,7 @@ const GameConfig = {
         "ja": "旅人",
         "en": "Traveler"
       },
-      "color": "#49677e",
+      "color": "#444444",
       "sprites": {},
       "profile": {
         "role": "主角",
@@ -93,7 +93,7 @@ const GameConfig = {
         "ja": "案内人",
         "en": "Guide"
       },
-      "color": "#8a6173",
+      "color": "#666666",
       "sprites": {},
       "profile": {
         "role": "同行者",
@@ -110,9 +110,9 @@ const GameConfig = {
     }
   },
   "backgrounds": {
-    "morning": "linear-gradient(135deg, #c8deef, #f4e9db)",
-    "evening": "linear-gradient(135deg, #555d82, #bf8b8d)",
-    "blank": "#16202c"
+    "morning": "#eeeeee",
+    "evening": "#d5d5d5",
+    "blank": "#2d2d2d"
   },
   "cgs": {},
   "bgm": {},
@@ -165,7 +165,8 @@ const GameConfig = {
       "titleImage": null,
       "buttons": {},
       "ui": {
-        "settingTitle": "- 设置 -",
+        "templateSubtitle": "示例项目",
+        "settingTitle": "设置",
         "settingTabAudio": "音频设置",
         "settingTabVoice": "配音设置",
         "settingTabVideo": "视频设置",
@@ -205,7 +206,7 @@ const GameConfig = {
         "minigameAssetCredits": "示例不附带图片、音频或视频。小游戏默认使用 Canvas 图形和合成音效。",
         "clearData": "清除所有存档数据",
         "back": "BACK",
-        "chapterSelect": "- 章节选择 -",
+        "chapterSelect": "章节选择",
         "menuStart": "开始游戏",
         "menuLoad": "读取进度",
         "menuCG": "CG欣赏",
@@ -231,7 +232,7 @@ const GameConfig = {
         "creditsSkip": "跳过  SKIP",
         "sceneNotFound": "Error: Scene '%s' not found. \nCheck script.js syntax.",
         "debugUnlock": "【Debug】\n已解锁：\n1. 全部章节\n2. 全部CG\n3. 全部角色图鉴",
-        "historyTitle": "- 剧情回顾 -",
+        "historyTitle": "剧情回顾",
         "contacts": "通讯录",
         "selectContact": "请选择联系人",
         "clearRecord": "清除记录",
@@ -307,7 +308,8 @@ const GameConfig = {
       "titleImage": null,
       "buttons": {},
       "ui": {
-        "settingTitle": "- 設定 -",
+        "templateSubtitle": "サンプルプロジェクト",
+        "settingTitle": "設定",
         "settingTabAudio": "オーディオ",
         "settingTabVoice": "ボイス",
         "settingTabVideo": "画面設定",
@@ -347,7 +349,7 @@ const GameConfig = {
         "minigameAssetCredits": "画像・音声・動画は同梱していません。ミニゲームは Canvas と合成音を使用します。",
         "clearData": "セーブデータを全て削除",
         "back": "戻る",
-        "chapterSelect": "- チャプター選択 -",
+        "chapterSelect": "チャプター選択",
         "menuStart": "ゲーム開始",
         "menuLoad": "ロード",
         "menuCG": "CG鑑賞",
@@ -373,7 +375,7 @@ const GameConfig = {
         "creditsSkip": "スキップ  SKIP",
         "sceneNotFound": "エラー: シーン「%s」が見つかりません。\nscript.jsの構文を確認してください。",
         "debugUnlock": "【Debug】\n解除済み：\n1. 全チャプター\n2. 全CG\n3. 全キャラクター図鑑",
-        "historyTitle": "- 履歴 -",
+        "historyTitle": "履歴",
         "contacts": "連絡先",
         "selectContact": "連絡先を選択してください",
         "clearRecord": "履歴を削除",
@@ -450,7 +452,8 @@ const GameConfig = {
       "buttons": {},
       "ui": {
         "gameTitle": "Your Story",
-        "settingTitle": "- Settings -",
+        "templateSubtitle": "Sample project",
+        "settingTitle": "Settings",
         "settingTabAudio": "Audio",
         "settingTabVoice": "Voices",
         "settingTabVideo": "Video",
@@ -490,7 +493,7 @@ const GameConfig = {
         "minigameAssetCredits": "No images, audio or video are bundled. Minigames use Canvas drawing and synthesized sound.",
         "clearData": "Delete all game data",
         "back": "BACK",
-        "chapterSelect": "- Chapter Select -",
+        "chapterSelect": "Chapter Select",
         "menuStart": "Start Game",
         "menuLoad": "Chapter Select",
         "menuCG": "CG Gallery",
@@ -516,7 +519,7 @@ const GameConfig = {
         "creditsSkip": "SKIP",
         "sceneNotFound": "Scene '%s' could not be loaded.",
         "debugUnlock": "[Debug]\nUnlocked:\n1. All chapters\n2. All CGs\n3. All character profiles",
-        "historyTitle": "- Dialogue History -",
+        "historyTitle": "Dialogue History",
         "contacts": "Contacts",
         "selectContact": "Select a contact",
         "clearRecord": "Clear chat",

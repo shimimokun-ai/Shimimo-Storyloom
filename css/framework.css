@@ -1,17 +1,46 @@
-/* Neutral, image-free default theme. Replace this file to give your game its own look. */
+/* Plain default interface. Replace this file to give a project its own theme. */
+:root {
+    --primary-color: #555;
+    --text-color: #222;
+    --bg-overlay: #fff;
+    --glass-bg: #fff;
+    --glass-border: #d4d4d4;
+    --shadow: none;
+}
 [hidden] { display: none !important; }
-body { font-family: system-ui, 'Microsoft YaHei', sans-serif; }
-#main-menu { color: #33465c; }
-#main-menu::before { background: #e8edf6; }
+#game-container, #game-container * { font-family: system-ui, 'Microsoft YaHei', sans-serif !important; }
+#game-container *, #game-container *::before, #game-container *::after { box-shadow: none !important; text-shadow: none !important; }
+#game-container button {
+    border: 1px solid #bdbdbd; border-radius: 3px; background: #f5f5f5; color: #222;
+    font-weight: 400; letter-spacing: normal; filter: none;
+    transition: background-color .12s, border-color .12s;
+}
+#game-container button:hover:not(:disabled) { border-color: #999; background: #e9e9e9; color: #111; transform: none; filter: none; }
+#game-container button:focus-visible, #game-container input:focus-visible,
+#game-container textarea:focus-visible, #game-container .custom-select-trigger:focus-visible { outline: 2px solid #555; outline-offset: 2px; }
+#game-container button.active, #game-container button.selected,
+#game-container button[aria-pressed="true"] { border-color: #888; background: #e4e4e4; color: #111; }
+#game-container button:disabled { color: #888; cursor: default; }
+#game-container input[type="checkbox"] { accent-color: #555; }
+#game-container input[type="range"] { background: transparent; accent-color: #555; }
+#game-container input[type="range"]::-webkit-slider-runnable-track { background: #d9d9d9; border-radius: 2px; }
+#game-container input[type="range"]::-webkit-slider-thumb { border: 1px solid #666; border-radius: 3px; background: #777; }
+#game-container input[type="range"]::-moz-range-track { background: #d9d9d9; }
+#game-container input[type="range"]::-moz-range-thumb { border: 1px solid #666; border-radius: 3px; background: #777; }
+#game-container *::-webkit-scrollbar { width: 8px; height: 8px; }
+#game-container *::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 0; }
+#game-container *::-webkit-scrollbar-thumb { background: #bdbdbd; border: 2px solid #f1f1f1; border-radius: 0; }
+#game-container *::-webkit-scrollbar-thumb:hover { background: #999; }
+
+/* Main menu. */
+#main-menu { color: #222; }
+#main-menu::before { background: #f5f5f5; }
 .main-menu-background { position: absolute; inset: 0; width: 100%; height: 100%; }
 #main-menu-bg-switcher { left: 0; top: 0; width: 58%; height: 100%; }
-.framework-intro { position: absolute; z-index: 1; left: 8%; top: 23%; width: 45%; pointer-events: none; }
-.framework-eyebrow { font: 600 13px/1.4 system-ui, sans-serif; letter-spacing: .28em; color: #677b92; }
-.title { position: static; width: auto; height: auto; margin: 20px 0; background: none; font: 600 68px/1.25 system-ui, 'Microsoft YaHei', sans-serif; color: #33465c; filter: none; }
-.framework-description { font-size: 18px; line-height: 1.8; color: #6d7886; }
-.framework-footnote { margin-top: 80px; font-size: 11px; letter-spacing: .2em; color: #8a94a2; }
-#main-menu .menu-btn, #exit-game-btn { position: absolute; left: 68%; width: 23%; height: 50px; padding: 0 20px; border: 1px solid #ffffffc9; border-radius: 10px; background: #ffffff70; color: #33465c; font: 500 18px/1.4 system-ui, 'Microsoft YaHei', sans-serif; box-shadow: 0 6px 22px #44546e08; }
-#main-menu .menu-btn:hover, #exit-game-btn:hover { background: #ffffffc9; transform: translateX(4px); filter: none; }
+.framework-intro { position: absolute; z-index: 1; left: 8%; top: 27%; width: 45%; pointer-events: none; }
+.title { position: static; width: auto; height: auto; margin: 0 0 16px; background: none; color: #222; font-size: 48px; font-weight: 500; line-height: 1.4; filter: none; }
+.framework-description { margin: 0; color: #666; font-size: 20px; line-height: 1.6; }
+#main-menu .menu-btn, #exit-game-btn { position: absolute; left: 68%; width: 23%; height: 50px; padding: 0 20px; font-size: 20px; line-height: 1.4; }
 #start-btn { top: 23%; }
 #load-btn { top: 33%; }
 #characters-btn { top: 43%; }
@@ -19,9 +48,78 @@ body { font-family: system-ui, 'Microsoft YaHei', sans-serif; }
 #exit-game-btn { top: 63%; }
 #cg-btn { top: 73%; }
 #message-btn { top: 83%; }
-.character-placeholder { display: grid; place-items: center; width: 200px; height: 300px; bottom: 22% !important; border: 1px solid color-mix(in srgb, var(--character-color), transparent 65%); border-radius: 20px; background: color-mix(in srgb, var(--character-color), #ffffffd9 88%); color: var(--character-color); font: 500 28px/1.5 system-ui, 'Microsoft YaHei', sans-serif; box-shadow: 0 12px 35px #2633480c; }
-.startup-sprite-preview, #char-detail-image { display: grid; place-items: center; color: #617487; font-size: 36px; }
-.achievement-text-icon { display: inline-grid; place-items: center; flex: 0 0 48px; width: 48px; height: 48px; border-radius: 12px; background: #e8edf6; color: #6c7898; font-size: 24px; }
-.message-avatar { display: grid; place-items: center; font-size: 20px; color: #6c7898; }
-.settings-tabs { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+/* Shared dialogs retain their existing layout and visibility behavior. */
+#setting-modal, #history-modal, #load-menu-modal, #cg-gallery-modal,
+#message-modal, #system-modal, #confirm-modal, #startup-language-overlay {
+    --window-backdrop-color: rgba(0, 0, 0, .45); --window-backdrop-filter: none;
+}
+.settings-dialog, #startup-language-dialog, #system-modal-content, #confirm-modal-content,
+#history-content, #load-menu-content, #cg-gallery-content, #message-container, #character-gallery-modal {
+    border: 1px solid #ccc; border-radius: 4px; background: #fff; color: #222; backdrop-filter: none;
+}
+#game-container .modal-title, #startup-language-title, #startup-notice-title, .startup-setup-card h3 {
+    color: #222; font-weight: 500; letter-spacing: normal;
+}
+.settings-header { text-align: left; padding: 20px 28px 16px; }
+.settings-dialog .modal-title { font-size: 28px; }
+.settings-tabs { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; padding: 0 28px 16px; border-color: #ddd; }
+#game-container .settings-tab { padding: 9px 12px; font-weight: 400; }
+.settings-tab::after { display: none; }
+#setting-content { padding: 24px 28px; color: #333; }
+.settings-footer { border-color: #ddd; background: #fafafa; }
+.setting-item, .setting-group-title, .setting-volume-control output, .voice-character-name,
+.voice-character-coverage, .voice-character-volume output, .credits-text, .voice-settings-hint { color: #444; }
+.setting-group-title { font-weight: 500; letter-spacing: normal; }
+.setting-item, .setting-danger-zone, .voice-character-row { border-color: #ddd; }
+
+/* Standard checkboxes in place of decorative switches. */
+.setting-switch { display: inline-flex; align-items: center; width: auto; height: auto; }
+.setting-switch input { position: static; width: 18px; height: 18px; margin: 0; opacity: 1; pointer-events: auto; cursor: pointer; }
+.setting-switch-visual { display: none; }
+.custom-select-trigger, .custom-select-options,
+#game-container input[type="text"], #game-container input[type="url"], #game-container input[type="password"] {
+    border: 1px solid #bdbdbd; border-radius: 3px; background: #fff; color: #222;
+}
+.custom-select-trigger:hover, .custom-select.open .custom-select-trigger,
+.custom-select-option:hover, .custom-select-option.selected { background: #eee; color: #222; border-color: #999; }
+.custom-select-arrow { border-color: #666; }
+
+/* Story, history and character views. */
+#dialogue-container { border: 1px solid #ccc; border-radius: 4px; background: #fff; backdrop-filter: none; }
+#name-box { border: 1px solid #ccc; border-radius: 3px; background: #f5f5f5; color: #222; }
+#text-box, .history-text { color: #222; }
+.history-speaker { color: #555; }
+.history-entry { border-color: #ddd; }
+#chapter-title { font-weight: 400; letter-spacing: normal; }
+.character-placeholder { display: grid; place-items: center; width: 200px; height: 300px; bottom: 22% !important; border: 1px solid #ccc; border-radius: 4px; background: #f5f5f5; color: #555; font-size: 28px; }
+.character-sprite { filter: none; }
+#character-list-container { background: #f5f5f5; border-color: #ddd; }
+#character-detail-container { background: #fff; }
+.character-list-item { color: #555; }
+.character-list-item:hover, .character-list-item.active { padding-left: 30px; border-left-color: #777; background: #e5e5e5; color: #222; }
+#char-detail-name { background: none !important; color: #222 !important; -webkit-text-fill-color: #222; font-weight: 500; }
+#char-detail-role, #char-detail-desc, .char-field, .char-field strong, .char-quote { color: #444; border-color: #ddd; background: transparent; }
+#char-detail-role::after { display: none; }
+.startup-sprite-preview, #char-detail-image { display: grid; place-items: center; color: #555; font-size: 32px; }
+.message-avatar { display: grid; place-items: center; color: #555; font-size: 20px; }
+#message-sidebar, #chat-header { background: #f5f5f5; border-color: #ddd; color: #222; }
+.sidebar-header, .contact-name, #chat-header-name { color: #222; }
+.chat-bubble { border: 1px solid #ddd; border-radius: 4px; background: #f5f5f5; color: #222; }
+.message-row.user .chat-bubble { background: #e9e9e9; }
+.contact-item:hover, .contact-item.active { border-color: #bbb; background: #e9e9e9; }
+
+/* Startup preferences use the same plain controls as settings. */
+.startup-setup-card { border: 1px solid #ddd; border-radius: 4px; background: #fff; }
+.startup-section-number { border: 1px solid #ddd; border-radius: 3px; background: #f5f5f5; color: #555; }
+.startup-setup-kicker, .startup-setup-header p, .startup-player-sprite-option > span:first-child,
+.startup-sprite-description p, .startup-card-hint, .startup-voice-hint,
+.startup-volume-heading label, .startup-volume-heading output, #startup-audio-status { color: #555; }
+.startup-setup-footer { border-color: #ddd; }
 .startup-preview-button:disabled { opacity: .4; cursor: default; }
+#game-container #startup-language-dialog button { border: 1px solid #bdbdbd; border-radius: 3px; background: #f5f5f5; color: #222; font-weight: 400; }
+#game-container #startup-language-dialog button.selected,
+#game-container #startup-language-dialog button.playing { border-color: #888; background: #e4e4e4; color: #111; }
+#game-container #startup-language-dialog button:hover:not(:disabled) { border-color: #999; background: #e9e9e9; color: #111; }
+.startup-sprite-preview { border-color: #ddd; border-radius: 3px; background: #f5f5f5; }
+@container game (max-width: 700px) { .settings-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

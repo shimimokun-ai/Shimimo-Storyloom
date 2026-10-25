@@ -3,16 +3,13 @@
     if (typeof module === 'object' && module.exports) module.exports = factory(require('../config'));
     else root.AchievementCatalog = factory(GameConfig);
 })(globalThis, config => {
-    const rows = [
-        ['story_complete', '完成一个故事', '读完示例剧情。', '物語の終わり', 'サンプルを読み終える。', 'A Story Complete', 'Finish the sample story.'],
-        ['rhythm_win', '跟上节拍', '完成节奏小游戏。', 'リズムに乗って', 'リズムゲームをクリアする。', 'Find Your Rhythm', 'Clear the rhythm minigame.'],
-        ['fighting_win', '第一场胜利', '赢得格斗小游戏。', '初勝利', '格闘ゲームで勝利する。', 'First Victory', 'Win the fighting minigame.'],
-        ['dodgeball_win', '顺利抵达', '完成雪地小游戏。', '無事に到着', '雪上ゲームをクリアする。', 'Safe Arrival', 'Finish the snow minigame.'],
-        ['ema_complete', '写下心愿', '完成书写小游戏。', '願いを書く', '書き込みを完了する。', 'Make a Wish', 'Finish the writing minigame.']
-    ];
-    const definitions = (config.achievements?.definitions || rows.map(([id, zh, zhd, ja, jad, en, end]) => ({
+    // Stable sample event IDs; the default display is only 1, 2, 3.
+    const placeholders = ['story_complete', 'rhythm_win', 'fighting_win'];
+    const definitions = (config.achievements?.definitions || placeholders.map((id, index) => ({
         id, steamId: `ACH_${id.toUpperCase()}`, icon: null, lockedIcon: null,
-        zh: { name: zh, description: zhd }, ja: { name: ja, description: jad }, en: { name: en, description: end }
+        zh: { name: String(index + 1), description: '' },
+        ja: { name: String(index + 1), description: '' },
+        en: { name: String(index + 1), description: '' }
     }))).map(Object.freeze);
     const ids = new Set(definitions.map(item => item.id));
     const encounterCharacters = Object.freeze(Object.keys(config.characters));
