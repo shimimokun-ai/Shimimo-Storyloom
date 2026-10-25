@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'none'; frame-src 'none'; worker-src 'none'; form-action 'none'">
+    <title>Galgame Framework</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modals.css">
+    <link rel="stylesheet" href="css/message.css">
+    <link rel="stylesheet" href="css/rhythm_game.css">
+    <link rel="stylesheet" href="css/fighting_game.css">
+    <link rel="stylesheet" href="css/dodgeball_game.css">
+    <link rel="stylesheet" href="css/writing_game.css">
+    <link rel="stylesheet" href="css/arcade.css">
+    <link rel="stylesheet" href="css/ending-credits.css">
+    <link rel="stylesheet" href="css/achievements.css">
+    <link rel="stylesheet" href="css/character_gallery.css">
+    <link rel="stylesheet" href="css/startup.css">
+    <link rel="stylesheet" href="css/english.css">
+    <link rel="stylesheet" href="css/readability.css">
+    <link rel="stylesheet" href="css/framework.css">
+</head>
+
+<body>
+    <div id="game-container">
+        <!-- Background Layer -->
+        <div id="background-layer"></div>
+
+        <!-- Character Layer -->
+        <div id="character-layer">
+            <!-- Characters will be injected here -->
+        </div>
+
+        <!-- UI Layer -->
+        <div id="ui-layer">
+            <div id="chapter-title" class="hidden"></div>
+
+            <div id="dialogue-container" class="hidden">
+                <div id="name-box"></div>
+                <div id="text-box"></div>
+                <div id="next-indicator">▼</div>
+                <div class="dialogue-controls">
+                    <button id="auto-btn">AUTO</button>
+                    <button id="skip-btn">SKIP</button>
+                    <button id="history-btn">LOG</button>
+                    <button id="dialogue-settings-btn" type="button" data-i18n="menuSetting"
+                        aria-haspopup="dialog" aria-controls="setting-modal">设置</button>
+                    <button id="menu-sw-btn">MENU</button>
+                </div>
+            </div>
+
+            <!-- History Log Modal -->
+            <div id="history-modal" class="window-backdrop" inert aria-hidden="true">
+                <h2 class="modal-title modal-title--spaced" data-i18n="historyTitle">
+                    - 剧情回顾 -</h2>
+                <div id="history-content">
+                    <!-- Logs injected here -->
+                </div>
+                <button id="history-close" data-i18n="back">BACK</button>
+            </div>
+
+            <div id="choice-container" class="hidden">
+                <!-- Choices will be injected here -->
+            </div>
+
+            <div id="main-menu" tabindex="-1">
+                <div id="main-menu-bg-switcher"></div>
+                <div class="framework-intro"><p class="framework-eyebrow">GALGAME FRAMEWORK</p><h1 class="title">你的故事</h1><p class="framework-description">从一句对白开始，让你的故事发生。</p><p class="framework-footnote">TEXT · CHOICES · YOUR WORLD</p></div>
+                <button id="start-btn" class="menu-btn" data-i18n="menuStart">开始游戏</button>
+                <button id="load-btn" class="menu-btn" data-i18n="menuLoad">读取进度</button>
+                <button id="cg-btn" class="menu-btn" data-i18n="menuCG">CG欣赏</button>
+                <button id="characters-btn" class="menu-btn" data-i18n="menuCharacter">角色图鉴</button>
+                <button id="message-btn" class="menu-btn" data-i18n="menuMessage">手机短讯</button>
+                <button id="setting-btn" class="menu-btn" data-i18n="menuSetting">设置</button>
+                <button id="exit-game-btn" data-i18n="menuExit">退出游戏</button>
+            </div>
+
+            <!-- Character Gallery Modal -->
+            <div id="character-gallery-modal" inert aria-hidden="true">
+                <div id="character-list-container">
+                    <!-- Character items will be injected here -->
+                </div>
+                <div id="character-detail-container">
+                    <div class="detail-content-wrapper">
+                        <div id="char-detail-image"></div>
+                        <div class="char-info-box">
+                            <div class="char-name-container">
+                                <h2 id="char-detail-name"></h2>
+                                <div id="char-detail-icon"></div>
+                            </div>
+                            <p id="char-detail-role"></p>
+                            <div id="char-detail-desc-container">
+                                <!-- Dynamic details injected here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="character-gallery-close" data-i18n="back">BACK</button>
+            </div>
+
+            <!-- Message Interface Modal -->
+            <div id="message-modal" class="window-backdrop" inert aria-hidden="true">
+                <div id="message-container">
+                    <div id="message-sidebar">
+                        <div class="sidebar-header" data-i18n="contacts">通讯录</div>
+                        <div id="message-contact-list">
+                            <!-- Contacts injected here -->
+                        </div>
+                    </div>
+                    <div id="message-chat-area">
+                        <div id="chat-header">
+                            <div class="chat-header-info">
+                                <span id="chat-header-name" data-i18n="selectContact">请选择联系人</span>
+                                <span id="chat-header-status" role="status" aria-live="polite"></span>
+                            </div>
+                            <button id="chat-clear-btn" data-i18n="clearRecord">清除记录</button>
+                        </div>
+                        <div id="chat-history">
+                            <!-- Messages injected here -->
+                        </div>
+                        <div id="chat-input-area">
+                            <input type="text" id="chat-input" maxlength="1000" placeholder="输入消息..." disabled data-i18n-placeholder="inputMessage">
+                            <button id="chat-send-btn" disabled data-i18n="send">发送</button>
+                        </div>
+                    </div>
+                </div>
+                <button id="message-close-btn" data-i18n="closePhone">关闭手机</button>
+            </div>
+
+            <!-- CG Gallery Modal -->
+            <div id="cg-gallery-modal" class="window-backdrop" inert aria-hidden="true">
+                <div id="cg-gallery-content">
+                    <!-- Thumbnails injected by JS -->
+                </div>
+                <button id="cg-gallery-close" data-i18n="back">BACK</button>
+            </div>
+
+            <!-- Load Menu Modal -->
+            <div id="load-menu-modal" class="window-backdrop" inert aria-hidden="true">
+                <h2 id="chapter-menu-title" class="modal-title" data-i18n="chapterSelect">- 章节选择 -</h2>
+                <div id="load-menu-content">
+                    <!-- Chapter buttons injected by JS -->
+                </div>
+                <button id="load-menu-close" type="button" data-i18n="back">BACK</button>
+            </div>
+
+            <!-- Settings Modal -->
+            <div id="setting-modal" class="window-backdrop" inert aria-hidden="true">
+                <section class="settings-dialog" role="dialog" aria-modal="true" aria-labelledby="setting-title">
+                    <header class="settings-header">
+                        <h2 id="setting-title" class="modal-title" data-i18n="settingTitle">- 设置 -</h2>
+                    </header>
+
+                    <div class="settings-tabs" role="tablist">
+                        <button id="settings-tab-audio" class="settings-tab active" type="button" role="tab"
+                            aria-selected="true" aria-controls="settings-panel-audio" data-setting-tab="audio"
+                            data-i18n="settingTabAudio">音频设置</button>
+                        <button id="settings-tab-voice" class="settings-tab" type="button" role="tab"
+                            aria-selected="false" aria-controls="settings-panel-voice" data-setting-tab="voice"
+                            data-i18n="settingTabVoice">配音设置</button>
+                        <button id="settings-tab-video" class="settings-tab" type="button" role="tab"
+                            aria-selected="false" aria-controls="settings-panel-video" data-setting-tab="video"
+                            data-i18n="settingTabVideo">视频设置</button>
+                        <button id="settings-tab-other" class="settings-tab" type="button" role="tab"
+                            aria-selected="false" aria-controls="settings-panel-other" data-setting-tab="other"
+                            data-i18n="settingTabOther">其他设置</button>
+                        <button id="settings-tab-chat-api" class="settings-tab" type="button" role="tab"
+                            aria-selected="false" aria-controls="settings-panel-chat-api" data-setting-tab="chat-api"
+                            data-i18n="settingTabChatApi">对话 API</button>
+                        <button id="settings-tab-achievements" class="settings-tab" type="button" role="tab"
+                            aria-selected="false" aria-controls="settings-panel-achievements" data-setting-tab="achievements">成就</button>
+                    </div>
+
+                    <div id="setting-content">
+                        <section id="settings-panel-achievements" class="settings-panel" role="tabpanel"
+                            aria-labelledby="settings-tab-achievements" data-setting-panel="achievements" hidden>
+                            <p id="achievement-status" role="status"></p>
+                            <div id="achievement-list"></div>
+                        </section>
+                        <section id="settings-panel-audio" class="settings-panel active" role="tabpanel"
+                            aria-labelledby="settings-tab-audio" data-setting-panel="audio">
+                            <div class="setting-item setting-volume-row">
+                                <label for="bgm-slider" data-i18n="bgmVolume">BGM 音量</label>
+                                <div class="setting-volume-control">
+                                    <input type="range" id="bgm-slider" min="0" max="1" step="0.01" value="0.15">
+                                    <output id="bgm-value" for="bgm-slider">15%</output>
+                                </div>
+                            </div>
+                            <div class="setting-item setting-volume-row">
+                                <label for="se-slider" data-i18n="seVolume">音效音量</label>
+                                <div class="setting-volume-control">
+                                    <input type="range" id="se-slider" min="0" max="1" step="0.01" value="0.7">
+                                    <output id="se-value" for="se-slider">70%</output>
+                                </div>
+                            </div>
+                            <div class="setting-item setting-volume-row">
+                                <label for="voice-slider" data-i18n="voiceVolume">配音总音量</label>
+                                <div class="setting-volume-control">
+                                    <input type="range" id="voice-slider" min="0" max="1" step="0.01" value="0.7">
+                                    <output id="voice-value" for="voice-slider">70%</output>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="settings-panel-voice" class="settings-panel" role="tabpanel"
+                            aria-labelledby="settings-tab-voice" data-setting-panel="voice" hidden>
+                            <h3 class="setting-group-title" data-i18n="voiceCharacters">角色配音（仅限中文）</h3>
+                            <p class="voice-settings-hint" data-i18n="voiceCharacterVolumeHint">角色音量与配音总音量叠加生效，100% 保持原音量。关闭角色不会清除音量设置。目前配音仅在中文剧情播放。</p>
+                            <div id="voice-character-settings" class="voice-character-settings"></div>
+                        </section>
+
+                        <section id="settings-panel-video" class="settings-panel" role="tabpanel"
+                            aria-labelledby="settings-tab-video" data-setting-panel="video" hidden>
+                            <label class="setting-item setting-toggle-row" for="fullscreen-toggle">
+                                <span data-i18n="fullscreen">全屏模式</span>
+                                <span class="setting-switch">
+                                    <input type="checkbox" id="fullscreen-toggle">
+                                    <span class="setting-switch-visual" aria-hidden="true"></span>
+                                </span>
+                            </label>
+                            <label class="setting-item player-sprite-option" for="show-player-sprite">
+                                <input type="checkbox" id="show-player-sprite" checked>
+                                <span data-i18n="showPlayerSprite">显示主角</span>
+                            </label>
+                        </section>
+
+                        <section id="settings-panel-chat-api" class="settings-panel" role="tabpanel"
+                            aria-labelledby="settings-tab-chat-api" data-setting-panel="chat-api" hidden>
+                            <p class="chat-api-hint" data-i18n="chatApiHint">仅用于角色 AI 对话，不影响剧情和配音。密钥保存在本机，不随存档分享。</p>
+                            <form id="chat-api-form" autocomplete="off" novalidate>
+                                <div class="setting-item chat-api-field">
+                                    <label for="chat-api-url" data-i18n="chatApiAddress">接口地址</label>
+                                    <input id="chat-api-url" type="url" value="https://api.deepseek.com" maxlength="2048"
+                                        spellcheck="false" autocapitalize="off" aria-describedby="chat-api-address-hint">
+                                    <p id="chat-api-address-hint" class="chat-api-hint" data-i18n="chatApiAddressHint">支持 Chat Completions 格式，例如 https://example.com/v1。</p>
+                                </div>
+                                <div class="setting-item chat-api-field">
+                                    <label for="chat-api-model" data-i18n="chatApiModel">模型名称</label>
+                                    <input id="chat-api-model" type="text" value="deepseek-chat" maxlength="200"
+                                        spellcheck="false" autocapitalize="off">
+                                </div>
+                                <div class="setting-item chat-api-field">
+                                    <label for="chat-api-key">API Key</label>
+                                    <div class="chat-api-key-control">
+                                        <input id="chat-api-key" type="password" maxlength="4096" autocomplete="new-password"
+                                            spellcheck="false" autocapitalize="off">
+                                        <button id="chat-api-key-toggle" type="button" aria-controls="chat-api-key"
+                                            aria-pressed="false" data-i18n="chatApiShowKey">显示</button>
+                                    </div>
+                                </div>
+                                <p id="chat-api-status" class="chat-api-status" role="status" aria-live="polite"></p>
+                                <div class="chat-api-actions">
+                                    <button id="chat-api-save" type="submit" data-i18n="chatApiSave">保存配置</button>
+                                    <button id="chat-api-clear" type="button" data-i18n="chatApiClear">清除配置</button>
+                                </div>
+                            </form>
+                        </section>
+
+                        <section id="settings-panel-other" class="settings-panel" role="tabpanel"
+                            aria-labelledby="settings-tab-other" data-setting-panel="other" hidden>
+                            <div class="setting-item">
+                                <label data-i18n="languageLabel">语言 / Language</label>
+                                <div class="custom-select" id="language-select">
+                                    <div class="custom-select-trigger" tabindex="0" role="button" aria-haspopup="listbox"
+                                        aria-expanded="false">
+                                        <span class="custom-select-text"></span>
+                                        <span class="custom-select-arrow"></span>
+                                    </div>
+                                    <div class="custom-select-options" role="listbox" inert aria-hidden="true">
+                                        <div class="custom-select-option" role="option" data-value="zh">中文</div>
+                                        <div class="custom-select-option" role="option" data-value="ja">日本語</div>
+                                        <div class="custom-select-option" role="option" data-value="en">English</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="setting-group-title" data-i18n="credits">版权声明</h3>
+                            <div class="credits-text">
+                                <p data-i18n="creditsText">框架和示例使用 ISC 许可证。默认界面使用系统字体。</p>
+                                
+                                <p data-i18n="minigameAssetCredits">示例不附带美术素材，小游戏由代码绘制。</p>
+                            </div>
+
+                            <div class="setting-danger-zone">
+                                <button id="clear-data-btn" type="button" data-i18n="clearData">清除所有存档数据</button>
+                            </div>
+                        </section>
+                    </div>
+
+                    <footer class="settings-footer">
+                        <button id="setting-close" type="button" data-i18n="back">BACK</button>
+                    </footer>
+                </section>
+            </div>
+
+            <!-- Generic System Modal -->
+            <div id="system-modal" class="window-backdrop" inert aria-hidden="true">
+                <div id="system-modal-content">
+                    <p id="system-modal-text"></p>
+                    <button id="system-modal-ok" data-i18n="confirm">确定</button>
+                </div>
+            </div>
+
+            <!-- Confirm Modal -->
+            <div id="confirm-modal" class="window-backdrop" inert aria-hidden="true">
+                <div id="confirm-modal-content">
+                    <p id="confirm-modal-text"></p>
+                    <div class="modal-buttons">
+                        <button id="confirm-modal-ok" data-i18n="confirm">确定</button>
+                        <button id="confirm-modal-cancel" data-i18n="cancel">取消</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rhythm Game Overlay -->
+            <div id="rhythm-game-container" class="arcade-overlay" inert aria-hidden="true">
+                <canvas id="rhythm-canvas" width="960" height="540"></canvas>
+            </div>
+
+            <!-- Fighting Game Overlay -->
+            <div id="fighting-game-container" class="arcade-overlay" inert aria-hidden="true">
+                <canvas id="fight-canvas" width="960" height="540"></canvas>
+            </div>
+
+            <!-- Dodgeball Game Overlay -->
+            <div id="dodgeball-game-container" class="arcade-overlay" inert aria-hidden="true">
+                <canvas id="dodgeball-canvas" width="960" height="540"></canvas>
+            </div>
+
+            <!-- Writing Game Overlay -->
+            <div id="writing-game-container" class="writing-overlay" inert aria-hidden="true">
+                <canvas id="writing-canvas" width="300" height="500"></canvas>
+            </div>
+
+            <div id="cg-full-view" inert aria-hidden="true" tabindex="-1"></div>
+        </div>
+
+        <!-- Ending Credits Overlay -->
+        <section id="ending-credits-overlay" aria-hidden="true" aria-label="Ending credits">
+            <div id="ending-credits-background"></div>
+            <div id="ending-credits-shade"></div>
+            <div id="ending-credits-viewport">
+                <div id="ending-credits-track"></div>
+            </div>
+            <button id="ending-credits-skip" type="button">跳过 SKIP</button>
+        </section>
+
+        <!-- First-launch language selection and setup, revealed after the startup animation -->
+        <div id="startup-language-overlay" class="window-backdrop" hidden>
+            <section id="startup-content-notice" role="dialog" aria-modal="true" tabindex="-1"
+                aria-labelledby="startup-notice-title" aria-describedby="startup-notice-age startup-notice-fiction" hidden>
+                <h2 id="startup-notice-title" data-startup-notice-i18n="startupNoticeTitle">阅读前须知</h2>
+                <p id="startup-notice-age" data-startup-notice-i18n="startupNoticeAge">本作中所有登场角色均为18周岁及以上的成年人。</p>
+                <p id="startup-notice-fiction" data-startup-notice-i18n="startupNoticeFiction">本作纯属虚构。登场人物、团体及事件与现实无关。</p>
+            </section>
+            <section id="startup-language-dialog" role="dialog" aria-modal="true"
+                aria-labelledby="startup-language-title" aria-describedby="startup-language-hint" hidden>
+                <header class="startup-setup-header">
+                    <span class="startup-setup-kicker" aria-hidden="true">FIRST MEETING</span>
+                    <h2 id="startup-language-title" data-startup-i18n="startupSetupTitle">在故事开始之前</h2>
+                    <p data-startup-i18n="startupSetupSubtitle">选择你的语言，调好声音，准备迎接初次相遇。</p>
+                </header>
+                <div class="startup-setup-body">
+                    <div class="startup-preferences">
+                        <section class="startup-setup-card" aria-labelledby="startup-text-language-title">
+                            <h3 id="startup-text-language-title"><span class="startup-section-number" aria-hidden="true">01</span><span data-startup-i18n="startupLanguageTitle">阅读语言</span></h3>
+                            <div class="startup-language-options">
+                                <button type="button" data-startup-language="zh" lang="zh-CN" aria-pressed="true">中文</button>
+                                <button type="button" data-startup-language="ja" lang="ja" aria-pressed="false">日本語</button>
+                                <button type="button" data-startup-language="en" lang="en" aria-pressed="false">English</button>
+                            </div>
+                        </section>
+                        <section class="startup-setup-card startup-sprite-card" aria-labelledby="startup-appearance-title">
+                            <h3 id="startup-appearance-title"><span class="startup-section-number" aria-hidden="true">02</span><span data-startup-i18n="startupAppearanceTitle">主角立绘</span></h3>
+                            <div class="startup-sprite-choice">
+                                <div id="startup-sprite-preview" class="startup-sprite-preview" aria-hidden="true"><img id="startup-protagonist-image" alt=""></div>
+                                <div class="startup-sprite-description">
+                                    <label class="startup-player-sprite-option" for="startup-show-player-sprite">
+                                        <span data-startup-i18n="showPlayerSprite">显示主角</span>
+                                        <span class="setting-switch"><input type="checkbox" id="startup-show-player-sprite" checked><span class="setting-switch-visual" aria-hidden="true"></span></span>
+                                    </label>
+                                    <p data-startup-i18n="startupAppearanceHint">关闭后只隐藏主角立绘，不影响对白和配音。</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <section class="startup-setup-card startup-audio-card" aria-labelledby="startup-audio-title">
+                        <h3 id="startup-audio-title"><span class="startup-section-number" aria-hidden="true">03</span><span data-startup-i18n="startupAudioTitle">声音与配音</span></h3>
+                        <p class="startup-card-hint" data-startup-i18n="startupAudioHint">点击右侧试听，再调整到舒适的音量。</p>
+                        <div class="startup-volume-row">
+                            <div class="startup-volume-heading"><label for="startup-bgm-slider" data-startup-i18n="bgmVolume">BGM 音量</label><output id="startup-bgm-value" for="startup-bgm-slider">15%</output></div>
+                            <div class="startup-volume-control"><input id="startup-bgm-slider" type="range" min="0" max="1" step="0.01" value="0.15" data-startup-volume="bgm"><button type="button" class="startup-preview-button" data-startup-preview="bgm" aria-pressed="false"><span aria-hidden="true">▶</span><span data-startup-preview-label>试听</span></button></div>
+                        </div>
+                        <div class="startup-volume-row">
+                            <div class="startup-volume-heading"><label for="startup-se-slider" data-startup-i18n="seVolume">音效音量</label><output id="startup-se-value" for="startup-se-slider">70%</output></div>
+                            <div class="startup-volume-control"><input id="startup-se-slider" type="range" min="0" max="1" step="0.01" value="0.7" data-startup-volume="se"><button type="button" class="startup-preview-button" data-startup-preview="se" aria-pressed="false"><span aria-hidden="true">▶</span><span data-startup-preview-label>试听</span></button></div>
+                        </div>
+                        <div class="startup-volume-row">
+                            <div class="startup-volume-heading"><label for="startup-voice-slider" data-startup-i18n="startupVoiceVolume">配音总音量（仅限中文）</label><output id="startup-voice-value" for="startup-voice-slider">70%</output></div>
+                            <div class="startup-volume-control"><input id="startup-voice-slider" type="range" min="0" max="1" step="0.01" value="0.7" data-startup-volume="voice"><button type="button" class="startup-preview-button" data-startup-preview="voice" aria-pressed="false"><span aria-hidden="true">▶</span><span data-startup-preview-label>试听</span></button></div>
+                        </div>
+                        <p class="startup-voice-hint" data-startup-i18n="startupVoiceSampleHint">配音试听为中文样本，目前剧情配音仅在中文语言下播放。</p>
+                        <p id="startup-audio-status" role="status" aria-live="polite"></p>
+                    </section>
+                </div>
+                <footer class="startup-setup-footer">
+                    <p id="startup-language-hint" data-startup-i18n="startupPreferencesHint">这些选项以后都可以在设置中更改。</p>
+                    <button id="startup-setup-confirm" type="button" data-startup-i18n="startupStart">保存并进入游戏</button>
+                </footer>
+            </section>
+        </div>
+
+        <!-- Startup Animation -->
+        <div id="startup-container" class="window-backdrop">
+            <video id="startup-video" playsinline autoplay></video>
+        </div>
+
+        <!-- BGM Audio -->
+        <audio id="bgm-player" loop>
+        </audio>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/ui/viewport.js"></script>
+    <script src="js/ui/main-menu-background.js"></script>
+    <script src="js/core/game-state.js"></script>
+    <script src="js/services/save-manager.js"></script>
+    <script src="js/core/runtime-state.js"></script>
+    <script src="js/data/achievements.js"></script>
+    <script src="js/services/achievement-manager.js"></script>
+    <script src="js/story/story-repository.js"></script>
+    <script src="js/generated/voice-manifest.js"></script>
+    <script src="js/generated/ending-credits.js"></script>
+    <script src="js/locales/ending-credits-ja.js"></script>
+    <script src="js/locales/ending-credits-en.js"></script>
+    <script src="js/services/activity-scope.js"></script>
+    <script src="js/services/audio-manager.js"></script>
+    <script src="js/services/localization.js"></script>
+
+    <script src="js/data/chat-character-cards.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/script_ja.js"></script>
+    <script src="js/script_en.js"></script>
+    <script src="js/core/command-handlers.js"></script>
+    <script src="js/ui/gallery.js"></script>
+    <script src="js/ui/load-menu.js"></script>
+    <script src="js/ui/settings.js"></script>
+    <script src="js/ui/startup-setup.js"></script>
+    <script src="js/ui/history.js"></script>
+    <script src="js/ui/modals.js"></script>
+    <script src="js/ui/message-interface.js"></script>
+    <script src="js/ui/ending-credits.js"></script>
+    <script src="js/minigames/arcade-kit.js"></script>
+    <script src="js/minigames/rhythm-game.js"></script>
+    <script src="js/minigames/fighting-game.js"></script>
+    <script src="js/minigames/dodgeball-game.js"></script>
+    <script src="js/minigames/writing-game.js"></script>
+    <script src="js/engine.js"></script>
+</body>
+
+</html>

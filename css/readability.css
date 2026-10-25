@@ -1,0 +1,272 @@
+/* Small UI copy is compensated independently of the 1920x1080 art scale.
+   Load after localized styles so English receives the same readable sizes. */
+#game-container {
+    --ui-body-size: calc(24px * var(--ui-text-scale, 1));
+    --ui-control-size: calc(20px * var(--ui-text-scale, 1));
+    --ui-caption-size: calc(18px * var(--ui-text-scale, 1));
+}
+
+/* Story text and controls stay readable as the window becomes tall or narrow.
+   All lengths still use stage coordinates, including the full-window offsets. */
+#dialogue-container {
+    padding: calc(20px * var(--story-text-scale, 1));
+    border-radius: calc(20px * var(--story-text-scale, 1));
+    border-width: calc(1px * var(--story-control-scale, 1));
+}
+
+#name-box,
+html[lang="en"] #name-box {
+    top: calc(-28px * var(--story-text-scale, 1));
+    left: calc(40px * var(--story-text-scale, 1));
+    padding: calc(4px * var(--story-text-scale, 1)) calc(30px * var(--story-text-scale, 1));
+    font-size: calc(2.5rem * var(--story-text-scale, 1));
+    max-width: calc(100% - 80px * var(--story-text-scale, 1));
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#text-box,
+html[lang="en"] #text-box {
+    font-size: calc(1.8rem * var(--story-text-scale, 1));
+    margin-top: calc(35px * var(--story-text-scale, 1));
+    margin-bottom: calc(12px * var(--story-text-scale, 1));
+    padding-left: calc(20px * var(--story-text-scale, 1));
+}
+
+.dialogue-controls {
+    display: flex;
+    flex: 0 0 auto;
+    align-self: flex-end;
+    width: min(100%, calc(480px * var(--story-control-scale, 1)));
+    gap: calc(8px * var(--story-control-scale, 1));
+    padding-right: calc(24px * var(--story-control-scale, 1));
+    box-sizing: border-box;
+}
+
+.dialogue-controls > button {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+#auto-btn,
+#skip-btn,
+#history-btn,
+#dialogue-settings-btn,
+#menu-sw-btn {
+    position: static;
+    font-size: calc(1rem * var(--story-control-scale, 1));
+    line-height: 1.4;
+    padding: calc(5px * var(--story-control-scale, 1)) 0;
+    border-width: calc(2px * var(--story-control-scale, 1));
+    border-radius: calc(8px * var(--story-control-scale, 1));
+}
+
+#dialogue-settings-btn {
+    flex-grow: 1.4;
+}
+
+#next-indicator {
+    bottom: calc(28px * var(--story-text-scale, 1));
+    right: calc(20px * var(--story-text-scale, 1));
+    font-size: calc(1rem * var(--story-control-scale, 1));
+}
+
+.settings-dialog {
+    width: min(1120px, 100%);
+    height: min(840px, 100%);
+}
+
+.settings-dialog,
+#startup-language-dialog {
+    background: linear-gradient(145deg, #fffdfd, #f5edf2);
+    font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    color: #342c34;
+}
+
+.settings-dialog .modal-title,
+#startup-language-title {
+    font-size: calc(36px * var(--ui-text-scale, 1));
+    color: #342c34;
+    text-shadow: none;
+    font-weight: 700;
+}
+
+.settings-tab {
+    min-height: 64px;
+    font-size: var(--ui-control-size);
+    line-height: 1.4;
+    color: #514650;
+    overflow-wrap: anywhere;
+}
+
+.settings-tab.active {
+    color: #a12f4c;
+    border-color: #ce8296;
+    background: #fce5ec;
+}
+
+.settings-tab::after {
+    background: #a12f4c;
+}
+
+.setting-item,
+html[lang="en"] .setting-item > label {
+    font-size: var(--ui-body-size);
+    line-height: 1.5;
+    color: #342c34;
+}
+
+.setting-item {
+    min-height: 88px;
+    flex-wrap: wrap;
+    background: #fff;
+}
+
+.setting-item > label {
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+
+.setting-volume-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+}
+
+.setting-volume-control,
+html[lang="en"] .setting-volume-control {
+    min-width: 0;
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) 96px;
+}
+
+.setting-volume-control output {
+    min-width: 0;
+    font-size: var(--ui-control-size);
+    color: #443943;
+}
+
+.setting-switch {
+    width: 64px;
+    height: 36px;
+}
+
+.player-sprite-option {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: calc(16px * var(--ui-text-scale, 1));
+    font-size: var(--ui-control-size);
+    line-height: 1.5;
+    cursor: pointer;
+    text-align: left;
+}
+
+.player-sprite-option input[type="checkbox"] {
+    flex: 0 0 auto;
+    width: calc(24px * var(--ui-text-scale, 1));
+    height: calc(24px * var(--ui-text-scale, 1));
+    margin: 0;
+    accent-color: #ce8296;
+    cursor: pointer;
+}
+
+.player-sprite-option input:focus-visible {
+    outline: 3px solid rgba(255, 122, 142, 0.35);
+    outline-offset: 4px;
+}
+
+.player-sprite-option > span {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+
+.setting-item.player-sprite-option {
+    font-size: var(--ui-body-size);
+}
+
+.setting-switch-visual::after {
+    top: 5px;
+    left: 5px;
+    width: 26px;
+    height: 26px;
+}
+
+.setting-switch input:checked + .setting-switch-visual::after {
+    transform: translateX(28px);
+}
+
+.voice-character-name,
+.setting-group-title {
+    font-size: var(--ui-control-size);
+    color: #342c34;
+    line-height: 1.5;
+}
+
+.voice-character-name {
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.voice-character-coverage,
+.voice-settings-hint,
+.credits-text,
+#achievement-status,
+.achievement-card p {
+    font-size: var(--ui-caption-size);
+    color: #574b55;
+    line-height: 1.65;
+    overflow-wrap: break-word;
+}
+
+#language-select {
+    min-width: 260px;
+    font-size: var(--ui-control-size);
+}
+
+.custom-select-trigger {
+    min-height: 58px;
+}
+
+#setting-close,
+#clear-data-btn,
+.startup-language-options button {
+    min-height: 58px;
+    font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    font-size: var(--ui-control-size);
+    color: #a12f4c;
+}
+
+#setting-close:hover,
+#clear-data-btn:hover,
+.startup-language-options button:hover {
+    color: white;
+}
+
+.achievement-card > div {
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+
+.achievement-card strong {
+    font-size: var(--ui-control-size);
+    color: #342c34;
+}
+
+.achievement-toast {
+    max-width: min(520px, 85cqw);
+}
+
+.achievement-toast strong,
+#history-content,
+.history-speaker,
+#system-modal-text,
+#confirm-modal-text {
+    font-size: var(--ui-control-size);
+}
+
+.achievement-toast small {
+    font-size: var(--ui-caption-size);
+}

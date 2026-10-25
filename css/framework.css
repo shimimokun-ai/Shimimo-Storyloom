@@ -1,0 +1,27 @@
+/* Neutral, image-free default theme. Replace this file to give your game its own look. */
+[hidden] { display: none !important; }
+body { font-family: system-ui, 'Microsoft YaHei', sans-serif; }
+#main-menu { color: #33465c; }
+#main-menu::before { background: #e8edf6; }
+.main-menu-background { position: absolute; inset: 0; width: 100%; height: 100%; }
+#main-menu-bg-switcher { left: 0; top: 0; width: 58%; height: 100%; }
+.framework-intro { position: absolute; z-index: 1; left: 8%; top: 23%; width: 45%; pointer-events: none; }
+.framework-eyebrow { font: 600 13px/1.4 system-ui, sans-serif; letter-spacing: .28em; color: #677b92; }
+.title { position: static; width: auto; height: auto; margin: 20px 0; background: none; font: 600 68px/1.25 system-ui, 'Microsoft YaHei', sans-serif; color: #33465c; filter: none; }
+.framework-description { font-size: 18px; line-height: 1.8; color: #6d7886; }
+.framework-footnote { margin-top: 80px; font-size: 11px; letter-spacing: .2em; color: #8a94a2; }
+#main-menu .menu-btn, #exit-game-btn { position: absolute; left: 68%; width: 23%; height: 50px; padding: 0 20px; border: 1px solid #ffffffc9; border-radius: 10px; background: #ffffff70; color: #33465c; font: 500 18px/1.4 system-ui, 'Microsoft YaHei', sans-serif; box-shadow: 0 6px 22px #44546e08; }
+#main-menu .menu-btn:hover, #exit-game-btn:hover { background: #ffffffc9; transform: translateX(4px); filter: none; }
+#start-btn { top: 23%; }
+#load-btn { top: 33%; }
+#characters-btn { top: 43%; }
+#setting-btn { top: 53%; }
+#exit-game-btn { top: 63%; }
+#cg-btn { top: 73%; }
+#message-btn { top: 83%; }
+.character-placeholder { display: grid; place-items: center; width: 200px; height: 300px; bottom: 22% !important; border: 1px solid color-mix(in srgb, var(--character-color), transparent 65%); border-radius: 20px; background: color-mix(in srgb, var(--character-color), #ffffffd9 88%); color: var(--character-color); font: 500 28px/1.5 system-ui, 'Microsoft YaHei', sans-serif; box-shadow: 0 12px 35px #2633480c; }
+.startup-sprite-preview, #char-detail-image { display: grid; place-items: center; color: #617487; font-size: 36px; }
+.achievement-text-icon { display: inline-grid; place-items: center; flex: 0 0 48px; width: 48px; height: 48px; border-radius: 12px; background: #e8edf6; color: #6c7898; font-size: 24px; }
+.message-avatar { display: grid; place-items: center; font-size: 20px; color: #6c7898; }
+.settings-tabs { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.startup-preview-button:disabled { opacity: .4; cursor: default; }

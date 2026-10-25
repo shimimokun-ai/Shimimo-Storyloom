@@ -1,0 +1,51 @@
+{
+  "name": "galgame-framework",
+  "version": "0.1.0",
+  "description": "A visual novel framework with a text-only sample and no bundled artwork or recordings.",
+  "author": "Galgame Framework contributors",
+  "private": true,
+  "main": "main.js",
+  "type": "commonjs",
+  "license": "ISC",
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "serve": "node tools/serve.js",
+    "check": "node tools/check-project.js",
+    "audit:source": "node tools/audit-source.js",
+    "test": "node --test tools/tests/*.test.js",
+    "test:smoke": "electron tools/smoke.cjs",
+    "verify": "npm run check && npm test && npm run audit:source",
+    "prepackage": "npm run verify",
+    "package": "node tools/build.cjs",
+    "predist": "npm run verify",
+    "dist": "node tools/build.cjs --dist"
+  },
+  "devDependencies": {
+    "electron": "43.2.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "org.galgame.framework.example",
+    "productName": "Galgame Framework",
+    "executableName": "GalgameFramework",
+    "directories": { "output": "dist" },
+    "files": [
+      "index.html", "main.js", "preload.js", "steam-config.json", "js/**/*", "css/**/*",
+      "assets/**/*", "LICENSE", "THIRD_PARTY_NOTICES.md", "package.json"
+    ],
+    "asar": true,
+    "npmRebuild": false,
+    "electronDist": "node_modules/electron/dist",
+    "electronFuses": {
+      "runAsNode": false,
+      "enableCookieEncryption": true,
+      "enableNodeOptionsEnvironmentVariable": false,
+      "enableNodeCliInspectArguments": false,
+      "enableEmbeddedAsarIntegrityValidation": true,
+      "onlyLoadAppFromAsar": true
+    },
+    "win": { "target": [{ "target": "zip", "arch": ["x64"] }] }
+  }
+}

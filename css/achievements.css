@@ -1,0 +1,31 @@
+.achievement-toast {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: min(360px, 85cqw);
+    padding: 12px 20px 12px 12px;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    background: linear-gradient(115deg, #effaff, #fff4f8);
+    box-shadow: 0 8px 28px #34557430;
+    color: #334e6a;
+    pointer-events: none;
+    animation: achievement-arrive .3s ease-out;
+}
+.achievement-toast img { width: 64px; height: 64px; border-radius: 14px; }
+.achievement-toast small, .achievement-toast strong { display: block; }
+.achievement-toast small { color: #ac4369; margin-bottom: 5px; }
+.achievement-toast strong { font-size: 18px; }
+#achievement-status { font-size: 14px; line-height: 1.65; margin: 0 0 18px; }
+#settings-panel-achievements { color: #514750; }
+.achievement-card { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid #bdcddd55; }
+.achievement-card img { width: 68px; height: 68px; flex-shrink: 0; border-radius: 14px; opacity: .8; }
+.achievement-card.is-earned img { filter: none; opacity: 1; }
+.achievement-card p { margin: 6px 0 0; font-size: 14px; line-height: 1.6; }
+@container game (max-width: 700px) { .settings-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@keyframes achievement-arrive { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .achievement-toast { animation: none; } }

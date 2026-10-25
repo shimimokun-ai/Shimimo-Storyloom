@@ -1,0 +1,146 @@
+/* A small wish slip over the story background, without an arcade shell. */
+#writing-game-container {
+    position: absolute;
+    inset: 0;
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    isolation: isolate;
+    pointer-events: auto;
+    color: #fff7f0;
+}
+
+#writing-game-container.visible { display: flex; }
+
+#writing-game-container::before {
+    content: '';
+    position: absolute;
+    top: var(--window-top, 0px);
+    left: var(--window-left, 0px);
+    width: var(--window-width, 1920px);
+    height: var(--window-height, 1080px);
+    z-index: -1;
+    background: rgba(16, 13, 21, 0.68);
+    pointer-events: none;
+}
+
+.writing-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    width: min(720px, 92%);
+}
+
+.writing-title {
+    margin: 0 0 4px;
+    font-size: calc(28px * var(--ui-text-scale, 1));
+    font-weight: 500;
+    line-height: 1.5;
+    text-align: center;
+    text-shadow: none;
+}
+
+.writing-paper {
+    position: relative;
+    width: 300px;
+    height: 500px;
+    flex: 0 0 auto;
+}
+
+.writing-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 3px;
+    box-shadow: 0 10px 24px #130b1933;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.writing-canvas:focus { outline: none; }
+.writing-canvas:focus-visible { outline: 2px solid #fff3d8; outline-offset: 5px; }
+
+.writing-tools {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    max-width: 100%;
+}
+
+.writing-button {
+    min-height: 42px;
+    padding: 7px 16px;
+    border: 1px solid #fff5ef40;
+    border-radius: 6px;
+    background: #fff5ef0d;
+    color: #f5e9e5;
+    font-family: inherit;
+    font-size: calc(17px * var(--ui-text-scale, 1));
+    font-weight: 400;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s;
+}
+
+.writing-button:hover:not(:disabled) { background: #fff5ef1f; border-color: #fff5ef80; }
+.writing-button:focus-visible { outline: 2px solid #f3d6a4; outline-offset: 3px; }
+.writing-button:disabled { opacity: 0.4; cursor: default; }
+.writing-brush[aria-pressed="true"] { background: #e4b5a829; border-color: #e9c495; color: #ffe7be; }
+
+.writing-finish {
+    min-width: 160px;
+    min-height: 48px;
+    margin-top: 2px;
+    padding: 10px 30px;
+    border-color: #f3dad0b3;
+    background: #d49a9026;
+    font-size: calc(20px * var(--ui-text-scale, 1));
+}
+
+.writing-notice {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 460px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    background: #30232aeb;
+    color: #fff5ef;
+    font-size: calc(17px * var(--ui-text-scale, 1));
+    text-align: center;
+    pointer-events: none;
+}
+
+.writing-confirm-overlay {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: #100d1566;
+}
+
+.writing-confirm {
+    box-sizing: border-box;
+    width: min(480px, 88%);
+    padding: 24px;
+    border: 1px solid #edc9b866;
+    border-radius: 10px;
+    background: #33282f;
+    box-shadow: 0 12px 30px #00000033;
+}
+
+.writing-confirm h3 { margin: 0 0 12px; font-size: calc(23px * var(--ui-text-scale, 1)); font-weight: 500; }
+.writing-confirm p { margin: 0 0 20px; font-size: calc(18px * var(--ui-text-scale, 1)); line-height: 1.7; }
+.writing-confirm-actions { display: flex; justify-content: flex-end; gap: 10px; }
+.writing-button-confirm { border-color: #edc9b899; }
+.writing-confirm-overlay[hidden], .writing-notice[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    .writing-button { transition: none; }
+}

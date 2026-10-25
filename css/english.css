@@ -1,0 +1,65 @@
+/* English text needs more horizontal room than the Chinese copy. */
+@container game (min-width: 701px) {
+    html[lang="en"] .settings-tabs {
+        grid-template-columns: repeat(5, minmax(0, 1fr)) minmax(0, 1.6fr);
+    }
+}
+
+html[lang="en"] #text-box {
+    font-family: Arial, 'Noto Sans SC', sans-serif;
+    font-size: clamp(16px, 1.6cqw, 25px);
+    line-height: 1.45;
+    margin-top: 18px;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    scrollbar-width: thin;
+}
+
+html[lang="en"] #name-box {
+    font-family: Georgia, serif;
+    font-size: clamp(20px, 2cqw, 32px);
+    letter-spacing: 0;
+    font-weight: 600;
+}
+
+html[lang="en"] .chapter-btn,
+html[lang="en"] .choice-btn {
+    font-family: Arial, sans-serif;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+}
+
+/* Long English roles and acknowledgements must wrap within the credit columns. */
+html[lang="en"] .ending-credits-copy {
+    font-family: Arial, 'Noto Sans SC', sans-serif;
+    overflow-wrap: anywhere;
+}
+
+html[lang="en"] .ending-credits-heading {
+    font-family: Georgia, 'Noto Serif SC', serif;
+    letter-spacing: 0.035em;
+    line-height: 1.4;
+}
+
+html[lang="en"] .ending-credits-label,
+html[lang="en"] .ending-credits-value {
+    min-width: 0;
+}
+
+html[lang="en"] .setting-item > label {
+    min-width: 0;
+    font-size: 1rem;
+}
+
+html[lang="en"] .setting-volume-control {
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr) 54px;
+}
+
+@container game (max-width: 680px) {
+    html[lang="en"] #settings-panel-other > .setting-item {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}

@@ -1,0 +1,104 @@
+/* A physical arcade cabinet: illuminated marquee, screen bezel and control deck. */
+.arcade-overlay.arcade-fight {
+    --arcade-accent: #efd7a1;
+    --arcade-surface: #161a29;
+    --arcade-ink: #faf2df;
+    --arcade-muted: #b7bdd0;
+    --arcade-line: #949bbe38;
+}
+.arcade-fight::before { background: #0e1019bd; }
+.arcade-fight .arcade-shell {
+    width: min(1660px, 94%);
+    height: min(990px, 94%);
+    border: 3px solid #555b75;
+    border-radius: 12px;
+    background: linear-gradient(120deg, #27283c, #131827 55%, #272436);
+    box-shadow: 0 24px 60px #05070d80, inset 0 0 0 6px #101422;
+}
+.arcade-fight .arcade-header {
+    min-height: 98px;
+    padding: 14px 28px;
+    border-bottom: 3px solid #090e1a;
+    background: linear-gradient(110deg, #253f59, #393051 60%, #583244);
+    box-shadow: inset 0 -2px 0 #e7c49459;
+}
+.arcade-fight .arcade-heading h2 { font-size: calc(32px * var(--ui-text-scale, 1)); font-style: italic; letter-spacing: 0.08em; }
+.arcade-fight .arcade-heading p { display: none; }
+.arcade-fight .arcade-eyebrow { color: #d8c3a6; font-size: calc(12px * var(--ui-text-scale, 1)); }
+.arcade-fight .arcade-pause { min-height: 42px; border-radius: 3px; font-size: calc(17px * var(--ui-text-scale, 1)); }
+.arcade-fight .arcade-hud {
+    grid-template-columns: minmax(0, 1fr) 134px minmax(0, 1fr);
+    grid-auto-flow: unset;
+    gap: 24px;
+    margin: 0 24px;
+    padding: 16px 22px;
+    border: 0;
+    border-radius: 0;
+    background: #0d1420;
+}
+.fight-plate { min-width: 0; }
+.fight-name { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.fight-name strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: calc(20px * var(--ui-text-scale, 1)); font-weight: 500; }
+.fight-badge { padding: 1px 9px; border: 1px solid #83c8e88c; background: #244a6280; color: #b3e8fa; font: 700 16px Arial, sans-serif; }
+.fight-plate-enemy .fight-name { flex-direction: row-reverse; }
+.fight-plate-enemy .fight-badge { border-color: #eb9bab8c; background: #67344480; color: #f5b8c6; }
+.fight-health, .fight-energy { overflow: hidden; width: 100%; background: #303446; }
+.fight-health { height: 26px; border: 2px solid #e8d5a787; transform: skewX(-12deg); }
+.fight-energy { height: 5px; margin-top: 7px; }
+.fight-meter-fill { display: block; width: 100%; height: 100%; background: linear-gradient(90deg, #508aab, #a3e7e8); transform-origin: left; }
+.fight-plate-enemy .fight-meter-fill { background: linear-gradient(90deg, #e6b8c3, #aa647d); transform-origin: right; }
+.fight-energy .fight-meter-fill { background: #dcc797; }
+.fight-danger .fight-health .fight-meter-fill { background: #ed8e68; }
+.fight-clock { display: flex; flex-direction: column; align-items: center; justify-content: center; color: #f5d9a9; }
+.fight-clock span { font-size: calc(13px * var(--ui-text-scale, 1)); }
+.fight-clock strong { font: 700 48px/1.05 'Consolas', monospace; font-variant-numeric: tabular-nums; }
+.arcade-fight .arcade-stage {
+    margin: 0 24px;
+    border: 10px solid #080d16;
+    border-radius: 3px;
+    background: #11192e;
+    box-shadow: 0 0 0 1px #637089, inset 0 0 12px #000;
+}
+.arcade-fight .arcade-canvas { image-rendering: pixelated; }
+.fight-combo {
+    position: absolute;
+    top: 14%;
+    right: 5%;
+    padding: 6px 12px;
+    color: #fff1c8;
+    background: #161d3299;
+    font-size: calc(26px * var(--ui-text-scale, 1));
+    font-weight: 700;
+    font-style: italic;
+    pointer-events: none;
+}
+.arcade-fight .arcade-controls {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: 16px 38px 20px;
+    border-top: 2px solid #535870;
+    background: repeating-linear-gradient(135deg, #ffffff03 0 2px, transparent 2px 16px), linear-gradient(#303448, #202538);
+}
+.fight-movement-keys, .fight-attack-keys { display: flex; align-items: center; gap: 12px; }
+.fight-stick { position: relative; width: 90px; height: 62px; margin-right: 16px; border-radius: 50%; background: #080e19; box-shadow: 0 3px 0 #4e5368; }
+.fight-stick::before { content: ''; position: absolute; left: 41px; top: 0; width: 10px; height: 40px; border-radius: 5px; background: linear-gradient(90deg, #707785, #d5d9de, #676c7b); transform: rotate(-12deg); transform-origin: bottom; }
+.fight-stick-knob { position: absolute; left: 25px; top: -18px; width: 39px; height: 39px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #b2e9f4, #4c9db6 45%, #1b516e); box-shadow: 0 3px 0 #0a3247; }
+.arcade-fight .fight-movement-keys .arcade-control { min-width: 108px; min-height: 62px; border-radius: 4px; padding: 8px 12px; font-size: calc(16px * var(--ui-text-scale, 1)); background: #171e2f; box-shadow: 0 3px 0 #090f1d; }
+.arcade-fight .fight-attack-keys .arcade-control { flex-direction: column; justify-content: center; gap: 0; min-width: 94px; min-height: 78px; padding: 7px 12px; border-radius: 50%; border-width: 3px; font-size: calc(14px * var(--ui-text-scale, 1)); color: #fff; box-shadow: 0 5px 0 #080d16, inset 0 2px 0 #ffffff38; }
+.fight-attack-keys .arcade-key-icon { display: none; }
+.fight-key-letter { font: 700 24px/1.1 Arial, sans-serif; }
+.arcade-fight .fight-light { background: #316682; border-color: #83c8dd; }
+.arcade-fight .fight-guard { background: #796530; border-color: #deca83; }
+.arcade-fight .fight-heavy { background: #914556; border-color: #e79bab; }
+.arcade-fight .arcade-control.pressed { transform: translateY(3px); box-shadow: 0 2px 0 #080d16; }
+.arcade-fight .arcade-notice { top: 8%; border-radius: 3px; border-color: #dac49b80; color: #ffedc5; background: #111b30e8; }
+.arcade-fight .arcade-notice.countdown { top: 34%; }
+.arcade-fight .arcade-modal { background: #080e19b3; }
+.arcade-fight .arcade-card { width: min(850px, 92%); border: 2px solid #98846b; border-radius: 4px; background: linear-gradient(145deg, #212c40, #1c2034); }
+.fight-card-label { color: #c9b492; font-size: calc(13px * var(--ui-text-scale, 1)); letter-spacing: 0.08em; }
+.fight-matchup { display: flex; align-items: center; justify-content: center; gap: 70px; margin-bottom: 12px; font: 700 30px Arial, sans-serif; color: #8fcde7; }
+.fight-matchup strong { color: #f1d29e; font-style: italic; font-size: 46px; }
+.fight-matchup span:last-child { color: #edabbc; }
+.fight-result-mark { margin-bottom: 12px; color: #f5d9a9; font-size: calc(38px * var(--ui-text-scale, 1)); font-weight: 700; font-style: italic; }
+.arcade-fight .arcade-card .arcade-button { border-radius: 3px; }
+.arcade-fight .arcade-art-status { margin-top: 12px; font-size: calc(16px * var(--ui-text-scale, 1)); }
