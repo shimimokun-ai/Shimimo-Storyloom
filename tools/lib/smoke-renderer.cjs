@@ -5,6 +5,7 @@ module.exports = async function smokeRenderer() {
             const until = async (condition, label) => { for (let i = 0; i < 200; i++) { if (condition()) return; await sleep(25); } throw new Error('Timed out: ' + label); };
             await until(() => !!window.game, 'engine initialization');
             const game = window.game;
+            assert(typeof window.electronAPI?.getAchievements === 'function', 'Sandboxed desktop preload bridge is available');
             if (game.isStartupSetupOpen()) { game.selectStartupLanguage('zh'); game.confirmStartupSetup(); }
             await until(() => game.startupMenuShown, 'startup menu');
             assert(getComputedStyle(document.querySelector('#start-btn')).fontSize !== '0px', 'Text button must be visible without artwork');
@@ -14,8 +15,28 @@ module.exports = async function smokeRenderer() {
             const menuTitle = document.querySelector('.title').textContent;
             game.openSettings();
             assert(game.gameState === 'modal', 'Settings opens');
+            const dialogStyle = getComputedStyle(document.querySelector('.settings-dialog'));
+            assert(dialogStyle.backgroundImage === 'none', 'Settings uses a plain background');
+            assert(dialogStyle.fontFamily.includes('system-ui'), 'Settings uses system fonts');
+            assert(dialogStyle.boxShadow === 'none', 'Settings has no decorative shadow');
+            game.selectSettingsTab('achievements');
+            await AchievementManager.refresh();
+            const achievementRows = Array.from(document.querySelectorAll('#achievement-list .achievement-card'));
+            assert(achievementRows.length === 3, 'Exactly three default achievement placeholders');
+            assert(achievementRows.map(row => row.querySelector('strong').textContent.split(' · ')[0]).join(',') === '1,2,3', 'Achievement labels are 1, 2, 3');
+            assert(!document.querySelector('#achievement-list img, #achievement-list p'), 'No default achievement art or descriptive copy');
+            game.selectSettingsTab('video');
+            const spriteToggle = document.querySelector('#show-player-sprite');
+            assert(getComputedStyle(spriteToggle).pointerEvents !== 'none', 'Native checkbox accepts pointer input');
+            const originalSpriteSetting = RuntimeState.showPlayerSprite;
+            spriteToggle.click();
+            assert(RuntimeState.showPlayerSprite !== originalSpriteSetting, 'Protagonist checkbox updates its preference');
+            spriteToggle.click();
+            assert(RuntimeState.showPlayerSprite === originalSpriteSetting, 'Protagonist checkbox restores its preference');
             game.handleLanguageChange('en');
             assert(document.title === 'Your Story', 'English project title');
+            game.handleLanguageChange('ja');
+            assert(document.title === 'あなたの物語', 'Japanese project title');
             game.closeSettings();
             game.handleLanguageChange('zh');
             game.startGame();
@@ -68,6 +89,7 @@ module.exports = async function smokeRenderer() {
             await until(() => SaveManager.get('cleared', false), 'story completion');
             assert(!document.querySelector('[src="undefined"]'), 'No invalid image URL after all features');
             await AchievementManager.refresh();
-            return { menuTitle, completed: true, placeholders: document.querySelectorAll('.character-placeholder').length,
+            return { menuTitle, completed: true, achievementLabels: '1,2,3', plainSettings: true,
+                placeholders: document.querySelectorAll('.character-placeholder').length,
                 languageScenes: Object.keys(GameConfig.languages).reduce((sum, language) => sum + Object.keys(StoryRepository.getManifest(language)).length, 0) };
         };

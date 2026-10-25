@@ -25,6 +25,9 @@ async function main() {
     try {
         const { build, Platform, Arch } = require('electron-builder');
         await build({ projectDir: root, targets: Platform.WINDOWS.createTarget(process.argv.includes('--dist') ? 'zip' : 'dir', Arch.x64), publish: 'never' });
+        const report = require('./check-package.cjs').verifyPackage(path.join(root, 'dist/win-unpacked/resources/app.asar'));
+        if (report.errors.length) throw new Error(report.errors.join('\n'));
+        console.log(`Packaged source check passed: ${report.files} text files; no game media.`);
     } finally { fs.writeFile = original; }
 }
 if (require.main === module) main().catch(error => { console.error(error); process.exitCode = 1; });

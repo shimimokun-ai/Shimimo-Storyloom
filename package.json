@@ -16,6 +16,8 @@
     "audit:source": "node tools/audit-source.js",
     "test": "node --test tools/tests/*.test.js",
     "test:smoke": "electron tools/smoke.cjs",
+    "check:package": "node tools/check-package.cjs",
+    "test:package": "node tools/smoke-package.cjs",
     "verify": "npm run check && npm test && npm run audit:source",
     "prepackage": "npm run verify",
     "package": "node tools/build.cjs",
@@ -32,7 +34,7 @@
     "executableName": "GalgameFramework",
     "directories": { "output": "dist" },
     "files": [
-      "index.html", "main.js", "preload.js", "steam-config.json", "js/**/*", "css/**/*",
+      "index.html", "main.js", "preload.js", "steam-config.json", "electron/**/*", "js/**/*", "css/**/*",
       "assets/**/*", "LICENSE", "THIRD_PARTY_NOTICES.md", "package.json"
     ],
     "asar": true,

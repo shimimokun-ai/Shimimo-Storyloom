@@ -69,6 +69,8 @@ npm run serve
 npm run verify       # 结构、剧情、测试与无素材检查
 npm run test:smoke   # 用真实 Electron 隐藏窗口验证完整流程
 npm run package      # 生成目录版，输出到 dist/
+npm run check:package # 检查发行包主进程依赖与无素材状态
+npm run test:package # 在 Windows 启动发行 EXE 验证同一完整流程
 npm run dist         # 在 Windows 生成 ZIP 发行包
 ```
 

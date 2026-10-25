@@ -8,10 +8,15 @@
 npm ci
 npm run verify
 npm run test:smoke
+npm run package
+npm run check:package
+npm run test:package
 git status
 ```
 
 `verify` 检查脚本语法、加载顺序、三语场景结构、资源引用、测试及源码目录是否混入媒体或二进制。无素材审计也会扫描当前 Git 历史的文件名。
+
+构建后会额外检查 `app.asar`：必需的桌面模块、页面依赖和章节文件必须存在，游戏文件必须保持纯文本。Windows 的 `test:package` 使用临时存储目录和仅回环地址的调试连接，直接验证生成的 EXE，不使用现有玩家存档。
 
 确认 `LICENSE` 的版权主体符合项目实际贡献者，并在 README 中填写你希望公开的项目介绍与联系渠道。当前沿用原项目声明的 ISC 许可证。
 
